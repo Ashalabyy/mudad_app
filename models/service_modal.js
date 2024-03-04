@@ -7,7 +7,7 @@ const serviceSchema = new Schema({
 
         required:true,
     },
-    ImageUrl : {
+    imageUrl : {
         type: String,
 
         required:true,
