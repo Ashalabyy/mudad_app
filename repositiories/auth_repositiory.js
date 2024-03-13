@@ -2,7 +2,7 @@
 const { structureResponse, hashPassword } = require('../utils/common_utils');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
+const otpGenerator = require('otp-generator');
 const { Config } = require('../Config/config');
 
 const UserModel = require('../models/user_modal');
@@ -37,6 +37,17 @@ const result = await user.save();
 
         return this.userLogin(body.email, pass, true);
     };
+
+    /**
+     createOtp = async (params, callback) => {
+         const OTP = `${otpGenerator.generate(4, { alphabets: false, upperCase: false, specialChars: false })}`;
+         const OTPHash = await bcrypt.hash(OTP, 8);
+           let expiration_datetime = new Date();
+
+     }
+      
+      
+     */
 
     userLogin = async (email, pass, is_register = false) => {
         const user = await UserModel.findOne({email: email });
