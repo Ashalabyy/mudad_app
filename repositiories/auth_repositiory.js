@@ -25,8 +25,10 @@ class AuthRepository {
         await hashPassword(body);
 const user = new UserModel({
     name:body.name,
+    verificationCode:body.verificationCode,
     email:body.email,
     password:body.password,
+    orders:body.orders,
     phoneNumber:body.phoneNumber,
 });
 const result = await user.save();
@@ -40,7 +42,7 @@ const result = await user.save();
 
     /**
      createOtp = async (params, callback) => {
-         const OTP = `${otpGenerator.generate(4, { alphabets: false, upperCase: false, specialChars: false })}`;
+         const OTP = `${otpGenerator.generate(6, { alphabets: false, upperCase: false, specialChars: false })}`;
          const OTPHash = await bcrypt.hash(OTP, 8);
            let expiration_datetime = new Date();
 
@@ -48,6 +50,15 @@ const result = await user.save();
       
       
      */
+
+     userMakeOrder = async(id,order) => {
+        const result = await UserModel.findOneAndUpdate({ _id: id } ,{ $push: { orders: order } });
+        if(result){
+            throw new RegistrationFailedException('user failed to be updated'); 
+        }
+        
+        return structureResponse(result,1,"Success");
+     };
 
     userLogin = async (email, pass, is_register = false) => {
         const user = await UserModel.findOne({email: email });

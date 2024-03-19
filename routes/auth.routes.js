@@ -8,5 +8,6 @@ const { validateLogin, validateRefresh } = require('../middleware/validators/aut
 router.post('/register', validateLogin, awaitHandlerFactory(authController.registerUser)); 
 router.post('/login', validateLogin, awaitHandlerFactory(authController.userLogin)); 
 router.post('/token', validateRefresh, awaitHandlerFactory(authController.refreshToken)); 
+router.put('/order/:id',awaitHandlerFactory(authController.userMakeOrder)); 
 
 module.exports = router;

@@ -22,6 +22,30 @@ const userSchema = new Schema({
 
         required:true,
     },
+    verificationCode: {
+        type:String,
+       },
+    orders:[{
+        id:String,
+
+        usertId:String,
+        
+        location: String,
+
+        total:Number,
+
+        
+        products:[{
+            id:String,
+    
+            imageUrl:String,
+            
+            price: Number,
+    
+            qty: Number,
+    
+          }],
+    }],
  
  
 });
